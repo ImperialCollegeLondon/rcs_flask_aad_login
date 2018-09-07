@@ -13,4 +13,9 @@ setuptools.setup(
     long_description_content_type = "text/markdown",
     url = "https://github.com/ImperialCollegeLondon/rcs-flask-aad-login",
     packages=setuptools.find_packages(),
+    install_requires  = [
+        'flask',
+        'flask-saml',
+        'flask-login',
+    ]
 )
