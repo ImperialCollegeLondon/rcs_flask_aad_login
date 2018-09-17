@@ -49,7 +49,7 @@ process is seamless.
 
 ## Installation
 ```python
-pip install git+git://github.com/ImperialCollegeLondon/rcs-flask-aad-login
+pip install git+git://github.com/ImperialCollegeLondon/rcs_flask_aad_login
 ```
 
 ## Setup
