@@ -27,11 +27,18 @@ rcs_flask_aad_login.init_app(app)
 def index():
     return 'Public info'
     
-@app.route('/priv')
-@login_required
 def priv():
-    return 'Super secret'
-    
+    return """\
+secrets<br>
+username: %s<br>
+username w domain: %s<br>
+givenname: %s<br>
+surname: %s<br>
+displayname: %s<br>
+emailaddress: %s""" % (current_user.username, current_user.username_domain,
+    current_user.givenname, current_user.surname, current_user.displayname,
+    current_user.emailaddress)
+
 if __name__ == '__main__':
     app.run(ssl_context='adhoc', port=5000, debug=True)
 ```

@@ -45,11 +45,15 @@ class User(UserMixin):
         saml = session['saml']
         self.id = saml['subject']
         attribs = saml['attributes']
-        self.username = attribs[u'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name']
-        self.givenname = attribs[u'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname']
-        self.surname = attribs[u'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname']
-        self.displayname = attribs[u'http://schemas.microsoft.com/identity/claims/displayname']
-        self.emailaddress = attribs[u'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress']
+        self.username_domain = attribs[u'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name'][0]
+        self.username = self.username_domain
+        m = self.username.find('@ic.ac.uk')
+        if m > 0:
+            self.username = self.username[:m]
+        self.givenname = attribs[u'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname'][0]
+        self.surname = attribs[u'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname'][0]
+        self.displayname = attribs[u'http://schemas.microsoft.com/identity/claims/displayname'][0]
+        self.emailaddress = attribs[u'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'][0]
 
 def init_app(app):
     '''Call this once the flask app is created'''
@@ -74,7 +78,7 @@ def init_app(app):
     @flask_saml.saml_authenticated.connect_via(app)
     def on_saml_authenticated(sender, subject, attributes, auth):
         login_user(load_user(subject))
-        # Permanent now defined to be 1 hour.  Workaround for Chrome.
+        # Permanent now defined to be 1 day.  Workaround for Chrome.
         session.permanent = True
 
     @flask_saml.saml_log_out.connect_via(app)
