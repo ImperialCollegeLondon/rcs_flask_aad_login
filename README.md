@@ -81,6 +81,13 @@ and 'Reply URL (Assertion Consumer Service URL)' to `https://<yourappsbaseurl>/s
 The latter in particular must be a `https` URL.  Save the page and run `Test SAML Settings`
 if desired.
 
+Annoyingly there's another page which must be updated.  It is at
+`Home->Imperial College London - App registrations->RCS Self-Service Portal DEV->Settings->Properties`.
+Set the Home Page URL to the base URL of your app.  This is checked when your
+app initiates the sign-on.  If it's wrong you'll get errors like
+`Application with identifier 'http://localhost:8080/saml/metadata/' was not found in the directory...`,
+where `localhost:8080` is the page of your app you're initiating the SSO from.
+
 Now decorate routes with `@login_required`.  When a user accesses the route
 they will be redirected through to the AAD single sign on and then
 redirected back to the page they were requesting.  You can provide a login
