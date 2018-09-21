@@ -98,6 +98,21 @@ expire according to whatever settings it and the user have set. If
 the user attempts to log in while their SSO session is valid, they will
 be signed in and returned to the desired page fairly seamlessly.
 
+## Accessing user data
+When a user authenticates a Flask-login `User` object is created and
+populated with data from the IC AAD entry.  The current parameters are
+
+* `username` - this is the bare college username.
+* `username_domain` - this is the college username with '@ic.ac.uk' appended.
+* `givenname` - the forename(s).
+* `surname` - the surname.
+* `displayname` - the college entry for the full name, usually 'Surname, Forename(s)'.
+* `emailaddress` - email address
+
+The `current_user` variable (`from flask_login import current_user`) holds the
+logged in `User` object or `None`.  Access the parameters as normal: e.g.
+`current_user.username`.
+
 ## Behind the scenes
 The package uses the [Flask-login](https://flask-login.readthedocs.io/en/latest/) and
 [Flask-SAML](https://flask-saml.readthedocs.io/en/latest/) packages.  Flask-login
