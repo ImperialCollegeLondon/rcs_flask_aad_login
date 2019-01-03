@@ -50,10 +50,10 @@ class User(UserMixin):
         m = self.username.find('@ic.ac.uk')
         if m > 0:
             self.username = self.username[:m]
-        self.givenname = attribs[u'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname'][0]
-        self.surname = attribs[u'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname'][0]
-        self.displayname = attribs[u'http://schemas.microsoft.com/identity/claims/displayname'][0]
-        self.emailaddress = attribs[u'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress'][0]
+        self.givenname = attribs.get(u'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname', (None))[0]
+        self.surname = attribs.get(u'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname', (None))[0]
+        self.displayname = attribs.get(u'http://schemas.microsoft.com/identity/claims/displayname', (None))[0]
+        self.emailaddress = attribs.get(u'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress', (None))[0]
 
 def init_app(app):
     '''Call this once the flask app is created'''
