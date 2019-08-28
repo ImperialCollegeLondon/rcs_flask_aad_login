@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name = "rcs_flask_aad_login",
-    version = "0.0.1",
+    version = "0.1.0",
     author = "Simon Clifford",
     author_email = "sclifford@imperial.ac.uk",
     description = "A tool to allow Flask applications to use IC's AAD single sign on",
