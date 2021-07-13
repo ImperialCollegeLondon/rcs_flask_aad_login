@@ -27,6 +27,8 @@ rcs_flask_aad_login.init_app(app)
 def index():
     return 'Public info'
     
+@app.route('/priv')
+@login_required
 def priv():
     return """\
 secrets<br>
